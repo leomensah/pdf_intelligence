@@ -36,7 +36,7 @@ API_KEY=your_openai_api_key
 ```shell
 streamlit run app.py
 ```
-2. nce the application is running, open your web browser and navigate to http://localhost:8501/. You will be presented with a user-friendly interface. Use the provided file upload feature to select and upload the PDF files you want to process.
+2. Since the application is running, open your web browser and navigate to http://localhost:8501/. You will be presented with a user-friendly interface. Use the provided file upload feature to select and upload the PDF files you want to process.
 
 3. After the PDF files are uploaded and processed, you can start asking questions about the content. Type your question into the input field and press "Enter" when done.
 

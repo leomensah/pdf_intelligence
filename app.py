@@ -11,7 +11,7 @@ from langchain.chains import ConversationalRetrievalChain
 from template import css, bot_template, user_template
 
 
-def get_pdf_text(pdf_docs):
+def handle_pdf_input(pdf_docs):
     """
     Extracts text from multiple PDF documents and concatenates them into a single string.
 
@@ -35,7 +35,7 @@ def get_pdf_text(pdf_docs):
     return text
 
 
-def get_text_chunks(raw_text):
+def handle_chunk_data(raw_text):
     """
     Splits the raw text into smaller chunks of a specified size.
 
@@ -53,7 +53,7 @@ def get_text_chunks(raw_text):
     return chunks
 
 
-def get_vectorstore(text_chunks):
+def save_chunk_to_database(text_chunks):
     """
     Creates a vector store from the text chunks using OpenAI embeddings.
 
@@ -69,7 +69,7 @@ def get_vectorstore(text_chunks):
     return vectorstore
 
 
-def get_conversation_chain(vectorstore):
+def handle_conversation(vectorstore):
     """
     Creates a conversation chain for conversational retrieval using an LLM and vector store.
 
@@ -88,7 +88,7 @@ def get_conversation_chain(vectorstore):
     return conversation_chain
 
 
-def handle_userinput(user_question):
+def handle_user_input(user_question):
     """ " Handles user input in the chat app.
 
     Parameters:
@@ -140,7 +140,7 @@ def main():
     # Get user input from a text input field
     user_question = st.text_input("Interact with documents Here!", key="user_input")
     if user_question:
-        handle_userinput(user_question)
+        handle_user_input(user_question)
 
     with st.sidebar:
         st.subheader("Uploaded Documents")
@@ -152,16 +152,16 @@ def main():
         if st.button("LOAD"):
             with st.spinner("loading.."):
                 # get pdf text content from the uploaded PDF documents
-                raw_text = get_pdf_text(pdf_docs)
+                raw_text = handle_pdf_input(pdf_docs)
 
                 # Split the raw text into smaller chunks for processing
-                text_chunks = get_text_chunks(raw_text)
+                text_chunks = handle_chunk_data(raw_text)
 
                 # create vectore store from the text chunks
-                vectorstore = get_vectorstore(text_chunks)
+                vectorstore = save_chunk_to_database(text_chunks)
 
                 # create conversation chain using the vector store
-                st.session_state.conversation = get_conversation_chain(vectorstore)
+                st.session_state.conversation = handle_conversation(vectorstore)
 
 
 if __name__ == "__main__":

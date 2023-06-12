@@ -27,15 +27,16 @@ pip install requirements.txt
 ## Configuration
 
 Next, set up the application's configuration. Create a .env file in the root directory of the application and provide the necessary environment variables, such as API keys and access credentials. Use the following template:
-
+```shell
 API_KEY=your_openai_api_key
+```
 
 ## Usage
 1. Start the PDF Intelligence Application by running the following command in your terminal:
 ```shell
 streamlit run app.py
 ```
-2. nce the application is running, open your web browser and navigate to http://localhost:8501/. You will be presented with a user-friendly interface. Use the provided file upload feature to select and upload the PDF files you want to process.
+2. Since the application is running, open your web browser and navigate to http://localhost:8501/. You will be presented with a user-friendly interface. Use the provided file upload feature to select and upload the PDF files you want to process.
 
 3. After the PDF files are uploaded and processed, you can start asking questions about the content. Type your question into the input field and press "Enter" when done.
 

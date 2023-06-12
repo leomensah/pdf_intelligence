@@ -27,8 +27,9 @@ pip install requirements.txt
 ## Configuration
 
 Next, set up the application's configuration. Create a .env file in the root directory of the application and provide the necessary environment variables, such as API keys and access credentials. Use the following template:
-
+```shell
 API_KEY=your_openai_api_key
+```
 
 ## Usage
 1. Start the PDF Intelligence Application by running the following command in your terminal:

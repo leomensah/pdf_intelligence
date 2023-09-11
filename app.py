@@ -129,11 +129,8 @@ def main():
     st.write(css, unsafe_allow_html=True)
 
     # Initialize session state variables if not already present
-    if "conversation" not in st.session_state:
-        st.session_state.conversation = None
-
-    if "chat_history" not in st.session_state:
-        st.session_state.chat_history = None
+    st.session_state.setdefault("conversation", None)
+    st.session_state.setdefault("chat_history", None)
 
     st.header("CHAT PDFs :books:")
 
@@ -145,23 +142,28 @@ def main():
     with st.sidebar:
         st.subheader("Uploaded Documents")
 
-        # Allow users to upload mulitple PDF documents
+        # Allow users to upload multiple PDF documents
         pdf_docs = st.file_uploader(
             "Upload Document and Click on Load Button", accept_multiple_files=True
         )
         if st.button("LOAD"):
             with st.spinner("loading.."):
-                # get pdf text content from the uploaded PDF documents
+                # Get pdf text content from the uploaded PDF documents
                 raw_text = handle_pdf_input(pdf_docs)
 
                 # Split the raw text into smaller chunks for processing
                 text_chunks = handle_chunk_data(raw_text)
 
-                # create vectore store from the text chunks
+                # Create vector store from the text chunks
                 vectorstore = save_chunk_to_database(text_chunks)
 
-                # create conversation chain using the vector store
+                # Create conversation chain using the vector store
                 st.session_state.conversation = handle_conversation(vectorstore)
+
+    # Add a button to clear the chat history
+    if st.button("Clear Chat"):
+        st.session_state.chat_history = None
+        st.session_state.conversation = None
 
 
 if __name__ == "__main__":
